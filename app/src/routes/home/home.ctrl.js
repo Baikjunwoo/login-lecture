@@ -22,20 +22,16 @@ const process = {
         if(users.id.includes(id)){
             const idx = users.id.indexOf(id);
             if(users.pw[idx] === pw){
-                console.log("로그인성공");
                 return res.send({ success : true });
             } else {
-                console.log("로그인실패");
                 return res.send({ success : false, msg : "로그인실패" });
             };
         }else {
-            console.log("존재하지 않는 아이디입니다.");
             return res.send({ success : false, msg : "존재하지 않는 아이디입니다." });
         }
     },
     
 };
-
 
 module.exports = {
     output : output,
