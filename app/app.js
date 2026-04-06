@@ -2,6 +2,7 @@
 
 // 모듈
 const express = require('express');
+// express() : express 모듈을 사용하여 애플리케이션 객체를 생성하는 함수, 애플리케이션 객체는 Express 애플리케이션의 핵심 객체로, 라우팅, 미들웨어, 설정 등을 관리하는 역할을 함
 const app = express();
 
 // 라우터
