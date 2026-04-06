@@ -1,4 +1,13 @@
 "use strict";
 
-console.log("안녕하세요!");
-console.log("굿바이");
+const id = document.querySelector("#id");
+const pw = document.querySelector("#pw");
+const btn = document.querySelector("#login");
+
+btn.addEventListener("click",  (btn) => {
+    const req = {
+        id: id.value,
+        pw: pw.value,
+    };
+});
+
