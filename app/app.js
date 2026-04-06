@@ -10,6 +10,8 @@ const home = require('./src/routes/home');
 // 앱 세팅
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
+app.use(express.static(`${__dirname}/src/public`)); // 정적 파일 제공, __dirname : 현재 파일의 경로, /src/public : 정적 파일이 위치한 폴더 경로
+
 
 app.use("/", home); // use : 미들웨어를 등록해주는 메서드, "/" : 모든 경로에 대해 home 라우터를 등록하겠다.
 
