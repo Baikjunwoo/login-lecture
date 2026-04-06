@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "body-parser": "^2.2.2",
     "ejs": "^5.0.1",
     "express": "^5.2.1"
   },
@@ -9,7 +10,6 @@
   "bin": {
     "login-lecture": "bin/www.js"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"

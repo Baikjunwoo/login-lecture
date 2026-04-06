@@ -1,16 +1,43 @@
 "use strict";
 
-const home = (req, res) => {
-    res.render('home/index.ejs');
+const users = {
+    id : ["admin", "jun", "min"],
+    pw : ["1234", "123456", "123456789"],
 };
 
-const login = (req, res) => {
-    res.render('home/login.ejs');
+const output = {
+    home : (req, res) => {
+        res.render('home/index.ejs');
+    },
+
+    login : (req, res) => {
+        res.render('home/login.ejs');
+    },
 };
 
+const process = {
+    login : (req, res) => {
+        const id = req.body.id;
+        const pw = req.body.pw;
+        if(users.id.includes(id)){
+            const idx = users.id.indexOf(id);
+            if(users.pw[idx] === pw){
+                console.log("로그인성공");
+                return res.send({ success : true });
+            } else {
+                console.log("로그인실패");
+                return res.send({ success : false, msg : "로그인실패" });
+            };
+        }else {
+            console.log("존재하지 않는 아이디입니다.");
+            return res.send({ success : false, msg : "존재하지 않는 아이디입니다." });
+        }
+    },
+    
+};
 
 
 module.exports = {
-    home : home,
-    login : login,
+    output : output,
+    process : process,
 };
