@@ -1,9 +1,6 @@
 "use strict";
 
-const users = {
-    id : ["admin", "jun", "min"],
-    pw : ["1234", "123456", "123456789"],
-};
+const User = require('../../models/User');
 
 const output = {
     home : (req, res) => {
@@ -17,18 +14,9 @@ const output = {
 
 const process = {
     login : (req, res) => {
-        const id = req.body.id;
-        const pw = req.body.pw;
-        if(users.id.includes(id)){
-            const idx = users.id.indexOf(id);
-            if(users.pw[idx] === pw){
-                return res.send({ success : true });
-            } else {
-                return res.send({ success : false, msg : "로그인실패" });
-            };
-        }else {
-            return res.send({ success : false, msg : "존재하지 않는 아이디입니다." });
-        }
+        const user = new User(req.body);
+        const response = user.login();
+        return res.json(response);
     },
     
 };
@@ -37,3 +25,5 @@ module.exports = {
     output : output,
     process : process,
 };
+
+const user = new User();
