@@ -2,7 +2,7 @@
 
 const id = document.querySelector("#id");
 const pw = document.querySelector("#pw");
-const btn = document.querySelector("#login");
+const btn = document.querySelector(".login-form button");
 
 btn.addEventListener("click",  (btn) => {
     const req = {
