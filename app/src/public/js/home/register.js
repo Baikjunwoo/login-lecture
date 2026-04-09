@@ -1,4 +1,4 @@
-
+"use strict";
 
 const name = document.querySelector("#name");
 const id = document.querySelector("#id");
@@ -7,14 +7,21 @@ const confirmPw = document.querySelector("#confirm-pw");
 const registerBtn = document.querySelector(".register-form button");
 
 registerBtn.addEventListener("click",  (registerBtn) => {
+    if(!id.value || !pw.value || !confirmPw.value || !name.value) {
+        return alert("빈공간을 입력해주세요."); // 아이디, 비밀번호, 확인 비밀번호 중 하나라도 입력되지 않았을 때 경고 메시지 출력
+    };
+    if(pw.value !== confirmPw.value) {
+        return alert("비밀번호가 일치하지 않습니다."); // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 출력
+    };
+
     const req = {
         name: name.value,
         id: id.value,
         pw: pw.value,
-        confirmPw: confirmPw.value,
+        //confirmPw: confirmPw.value,
     };
     fetch("/register", {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
