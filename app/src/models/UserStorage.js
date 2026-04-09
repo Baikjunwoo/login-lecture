@@ -1,25 +1,10 @@
 "use strict";
 
+const fs = require('fs').promises;
+
 class UserStorage {
-    static #users = {
-        id : ["admin", "jun", "min"],
-        pw : ["1234", "123456", "123456789"],
-        name : [],
-    };
-
-    static getUsers(...fields) {
-        const users = this.#users;
-        const newUsers = fields.reduce((newUsers, field) => {
-            if(users.hasOwnProperty(field)) {
-                newUsers[field] = users[field];
-            }
-            return newUsers;
-        }, {});
-        return newUsers;
-    }
-
-    static getUserInfo(id) {
-        const users = this.#users;
+    static #getUserInfo(data, id) {
+        const users = JSON.parse(data);
         const idx = users.id.indexOf(id);
         const usersKyes = Object.keys(users);
         const userInfo = usersKyes.reduce((newUser, info) => {
@@ -28,17 +13,48 @@ class UserStorage {
         }, {});
         return userInfo;
     }
-    static save(userInfo){
-        const users = this.#users;
-        if(users.id.includes(userInfo.id)){
-            return { success : false, msg : "이미 존재하는 아이디입니다."};
+    static #getUsers(data, isAll, fields) {
+        const users = JSON.parse(data);
+        if(isAll) return users;
+        const newUsers = fields.reduce((newUsers, field) => {
+            if(users.hasOwnProperty(field)) {
+                newUsers[field] = users[field];
+            }
+            return newUsers;
+        }, {});
+        return newUsers;
+    };
+    
+    static getUsers(isAll, ...fields) {
+        return fs.readFile("./src/databases/users.json")
+        .then((data) => {
+            return this.#getUsers(data, isAll, fields);
+        })
+        .catch(console.error);
+
+        
+    }
+
+    static getUserInfo(id) {
+        //const files = fs.readFile("./src/databases/users.json");
+        return fs.readFile("./src/databases/users.json")
+        .then((data) => {
+            return this.#getUserInfo(data, id);
+        })
+        .catch(console.error);
+            //return files;
+    }
+    
+    static async save(userInfo){
+        const users = await this.getUsers(true);
+        if(users.id.includes(userInfo.id)) {
+            return { success : false, msg : "중복된 아이디입니다" };
         }
         users.id.push(userInfo.id);
         users.pw.push(userInfo.pw);
         users.name.push(userInfo.name);
-        console.log(users);
-        return { success : true, msg : "회원가입 성공"};
+        await fs.writeFile("./src/databases/users.json", JSON.stringify(users));
+        return { success : true, msg : "회원가입 성공" };
     };
 };
-
 module.exports = UserStorage;

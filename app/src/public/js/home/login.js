@@ -5,6 +5,7 @@ const pw = document.querySelector("#pw");
 const loginBtn = document.querySelector(".login-form button");
 
 loginBtn.addEventListener("click",  (loginBtn) => {
+    loginBtn.preventDefault(); // 폼 제출 기본 동작 방지
     const req = {
         id: id.value,
         pw: pw.value,
