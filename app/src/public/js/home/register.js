@@ -19,7 +19,7 @@ registerBtn.addEventListener("click",  (registerBtn) => {
         name: names.value,
         id: id.value,
         pw: pw.value,
-        //confirmPw: confirmPw.value,
+        confirmPw: confirmPw.value,
     };
     fetch("/register", {
         method: "POST",

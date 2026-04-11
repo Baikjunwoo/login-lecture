@@ -4,6 +4,8 @@
 const express = require('express');
 // express() : express 모듈을 사용하여 애플리케이션 객체를 생성하는 함수, 애플리케이션 객체는 Express 애플리케이션의 핵심 객체로, 라우팅, 미들웨어, 설정 등을 관리하는 역할을 함
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();  // .env 파일의 내용을 process.env 객체에 로드하는 역할, .env 파일은 애플리케이션에서 사용할 환경 변수들을 정의하는 파일, 예를 들어 DB 연결 정보, API 키 등을 저장할 수 있음
 
 // 라우터
 const home = require('./src/routes/home');
