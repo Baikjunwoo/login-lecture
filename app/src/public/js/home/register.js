@@ -34,6 +34,7 @@ registerBtn.addEventListener("click",  (registerBtn) => {
             alert(res.msg);
             location.href = "/login"; // 회원가입 성공 시 로그인으로 이동
         } else {
+            if(res.err) return alert(res.err);
             alert(res.msg); // 회원가입 실패 시 메시지 출력
         };
     }).catch((err) => {

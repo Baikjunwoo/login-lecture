@@ -39,4 +39,9 @@ if(process.env.NODE_ENV !== "Production"){
     logger.add(options.cons);
 };
 
+logger.stream = {
+    write: (message) => {
+        logger.info(message.trim());
+    },
+};
 module.exports = logger;

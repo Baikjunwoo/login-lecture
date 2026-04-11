@@ -6,6 +6,9 @@ const loginBtn = document.querySelector(".login-form button");
 
 loginBtn.addEventListener("click",  (loginBtn) => {
     loginBtn.preventDefault(); // 폼 제출 기본 동작 방지
+    if(!id.value || !pw.value) {
+        return alert("빈공간을 입력해주세요"); // 비밀번호 입력 여부 확인
+    };
     const req = {
         id: id.value,
         pw: pw.value,
@@ -22,6 +25,7 @@ loginBtn.addEventListener("click",  (loginBtn) => {
         if(res.success) {
             location.href = "/"; // 로그인 성공 시 홈으로 이동
         } else {
+            if(res.err) return alert(res.err);
             alert(res.msg); // 로그인 실패 시 메시지 출력
         };
     }).catch((err) => {
